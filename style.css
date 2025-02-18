@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 0.2fr;
+}
+
+#sky {
+    background-color: #e4eefb;
+}
+
+#ground {
+    display: grid;
+    grid-template-rows: 0.3fr auto;
+}
+
+#grass {
+    background: linear-gradient(to bottom, #425517, #394a13);
+}
+
+#dirt {
+    position: relative;
+    background: #5a4630;
+    box-shadow: inset 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Sun styling */
+#sun {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle at center, #FFD700, #FFA500);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+#eyes {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+.eye {
+    width: 15px;
+    height: 15px;
+    background-color: black;
+    border-radius: 50%;
+}
+
+#lip {
+    width: 50px;
+    height: 25px;
+    border-bottom: 3px solid black;
+    border-radius: 0 0 50px 50px;
+    transform: rotate(0deg);
+}
+
+/* Stickwoman positioning */
+#stickwoman {
+    position: absolute;
+    bottom: 20%;
+}
+
+/* Control buttons */
+.button {
+    position: absolute;
+    background-color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.1s ease;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+.button:active {
+    transform: translateY(1px);
+}
+
+#left-button {
+    bottom: 10px;
+    left: 10px;
+}
+
+#right-button {
+    bottom: 10px;
+    left: 60px;
+}
+
+#jump-button {
+    bottom: 10px;
+    right: 10px;
+}
