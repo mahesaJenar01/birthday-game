@@ -1,37 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Game</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Game</title>
 </head>
 <body>
-    <div id="container">
-        <div id="sky">
-            <div id="sun">
-                <div id="eyes">
-                    <span class="eye"></span>
-                    <span class="eye"></span>
-                </div>
-                <div id="lip"></div>
-            </div>
-        </div>
-        
-        <div id="ground">
-            <div id="grass"></div>
-            <div id="dirt">
-                <button id="left-button" class="button">&#8592;</button>
-                <button id="right-button" class="button">&#8594;</button>
-                <button id="jump-button" class="button">Jump</button>
-            </div>
-        </div>
-
-        <canvas id="stickfigure"></canvas>
+  <div id="container">
+    <div id="sky"></div>
+    <div id="ground">
+      <div id="grass"></div>
+      <div id="dirt"></div>
     </div>
+    <!-- Canvas for the stickwoman -->
+    <canvas id="stickwoman"></canvas>
+  </div>
 
-    <script src="stickfigure.js"></script>
-    <script src="walker.js"></script>
-    <script src="main.js"></script>
+  <script src="message.js"></script>
+  <script src="wave.js"></script>
+  <script src="stickwoman.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

@@ -1,47 +1,44 @@
-// main.js
+// Set up the canvas and adjust its size to the container dimensions
+const canvas = document.getElementById('stickwoman');
+const ctx = canvas.getContext('2d');
+const container = document.getElementById('container');
 
-// Update CSS scale variable based on window size (using 1920 as a base width)
-function updateScale() {
-    const scale = window.innerWidth / 1920; // adjust base resolution as needed
-    document.documentElement.style.setProperty('--scale', scale);
-  }
-  
-  // Initial update of the scale variable
-  updateScale();
-  
-  // Create an instance of StickFigure and Walker
-  const stickfigure = new StickFigure('stickfigure');
-  const walker = new Walker(
-      stickfigure, 
-      window.innerWidth * 0.01, 
-      20, 
-      window.innerWidth - stickfigure.width - 20
-  );
-  
-  // Resize event listener to adjust all dynamic elements
-  window.addEventListener('resize', () => {
-      updateScale();
-      stickfigure.resize();
-      walker.moveAmount = window.innerWidth * 0.01;
-      walker.maxX = window.innerWidth - stickfigure.width - 20;
-  });
-  
-  // Set up event listeners for continuous movement
-  const leftButton = document.getElementById('left-button');
-  const rightButton = document.getElementById('right-button');
-  
-  leftButton.addEventListener('mousedown', () => walker.startMovingLeft());
-  leftButton.addEventListener('mouseup', () => walker.stopMovingLeft());
-  
-  rightButton.addEventListener('mousedown', () => walker.startMovingRight());
-  rightButton.addEventListener('mouseup', () => walker.stopMovingRight());
-  
-  // Animation loop to continuously update position
-  function animate() {
-      walker.updatePosition();
-      requestAnimationFrame(animate);
-  }
-  
-  // Start the animation
-  animate();
-  
+canvas.width = container.clientWidth;
+canvas.height = container.clientHeight;
+
+// Determine the grass position relative to the container.
+// This ensures that the stickwoman’s legs (from y + torsoLength) align with the top of the grass.
+const grass = document.getElementById('grass');
+const grassRect = grass.getBoundingClientRect();
+const containerRect = container.getBoundingClientRect();
+const grassTopRelative = grassRect.top - containerRect.top;
+
+// Calculate the initial y-coordinate for the stickwoman so her legs land on the grass.
+const initialY = grassTopRelative - 120; // adjust as needed based on leg length
+const initialX = 50; // initial horizontal position; adjust as needed
+
+async function mainLoop(){
+    const stickWoman = new StickWoman(ctx, initialX, initialY);
+    stickWoman.draw();
+
+    const waveAnimation = new WaveAnimation(stickWoman, ctx, canvas, 3);
+    waveAnimation.start();
+
+    const msg = new MessageBubble();
+    // Pesan pertama tampil selama 10 detik
+    await msg.start(
+      "Hallo!\nGuten Morgen (?)\nHow was your day going?\nI wish its going good!\nLet's play a game!", 
+      stickWoman.x, 
+      stickWoman.y, 
+      6
+    );
+    // Pesan kedua tampil selama 8 detik (misalnya)
+    await msg.start(
+      "Jadi, kamu harus ngumpulin bunga tulip sebanyak-banyaknya.\nMenghindari rintangan juga, kalau mati nanti dari ulang hehe.", 
+      stickWoman.x, 
+      stickWoman.y, 
+      7
+    );
+}
+
+mainLoop();
