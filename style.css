@@ -32,3 +32,52 @@
   white-space: pre-wrap;
   transition: opacity 1s ease;
 }
+
+/* Direction buttons container */
+.direction-container {
+  position: absolute;
+  /* Position container overlapping the dirt section */
+  top: 92vh;
+  left: 15px;
+  /* Width: two buttons plus gap */
+  width: calc(2 * 9vh + 5px);
+  height: 6vh; /* 50% of the dirt height (assuming dirt is ~12vh) */
+  display: flex;
+  gap: 5px;
+}
+
+/* Shared styles for direction buttons */
+.direction-button {
+  flex: 1;
+  font-size: 2.5vh;
+  background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.direction-button:hover, .jump-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Jump button on the right bottom corner */
+.jump-button {
+  position: absolute;
+  top: 92vh;
+  right: 15px;
+  padding: 0 10px;
+  min-width: 6vh;
+  height: 6vh;
+  font-size: 2.5vh;
+  background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}

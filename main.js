@@ -1,5 +1,3 @@
-// main.js
-
 // Set up the canvas and adjust its size to the container dimensions
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -9,7 +7,7 @@ canvas.width = container.clientWidth;
 canvas.height = container.clientHeight;
 
 // Instantiate the Background (from background.js)
-const background = new Background(ctx, canvas);
+const background = new Background(ctx, canvas, 1.5, 7);
 
 // Calculate the initial position for the stickwoman so her feet land on the grass
 const initialX = 50;
@@ -37,13 +35,11 @@ const msg = new MessageBubble();
 msg.start(
   "Hallo!\nGuten Morgen (?)\nHow was your day going?\nI wish its going good!\nLet's play a game!",
   stickWoman.x,
-  stickWoman.y,
-  6
+  stickWoman.y
 ).then(() => {
   return msg.start(
     "Jadi, kamu harus ngumpulin bunga tulip sebanyak-banyaknya.\nMenghindari rintangan juga, kalau mati nanti dari ulang hehe.",
     stickWoman.x,
-    stickWoman.y,
-    7
+    stickWoman.y
   );
 });

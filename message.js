@@ -39,41 +39,39 @@ class MessageBubble {
   }
 
   /**
-   * Menampilkan bubble pesan dengan teks yang diberikan dan mengembalikan Promise
-   * yang resolve setelah pesan selesai fade out dan dihapus.
+   * Displays a message bubble with the provided text and returns a Promise
+   * that resolves after the message bubble has faded out and been removed.
    *
-   * @param {string} message - Teks pesan (bisa multi-baris)
-   * @param {number} headX - Koordinat X dari kepala stickwoman (relative terhadap container)
-   * @param {number} headY - Koordinat Y dari kepala stickwoman (relative terhadap container)
-   * @param {number} totalTime - Total waktu tampilan pesan (dalam detik)
-   * @returns {Promise} Promise yang resolve setelah bubble selesai dihapus.
+   * The total display time is automatically calculated based on the average reading speed.
+   *
+   * @param {string} message - The message text (can be multiline)
+   * @param {number} headX - The X coordinate of the stickwoman's head (relative to container)
+   * @param {number} headY - The Y coordinate of the stickwoman's head (relative to container)
+   * @returns {Promise} A promise that resolves after the bubble is removed.
    */
-  start(message, headX, headY, totalTime) {
+  start(message, headX, headY) {
     return new Promise(resolve => {
+      // Calculate total time based on average reading speed
+      const words = message.split(/\s+/).filter(word => word.length > 0);
+      const totalWords = words.length;
+      const readingSpeed = 0.4; // seconds per word
+      const totalTime = totalWords * readingSpeed; // total time in seconds
       const totalTimeMs = totalTime * 1000;
-      const delayTime = totalTimeMs * 0.9; // 90% waktu tampil penuh
-      const fadeTime = totalTimeMs * 0.1;  // 10% untuk fade out
+      const delayTime = totalTimeMs * 0.9; // 90% of the time fully visible
+      const fadeTime = totalTimeMs * 0.1;  // 10% for fade out
 
       // Format message with 5-word limit per line
       const formattedMessage = this.formatMessageWith5WordLimit(message);
 
       const bubble = document.createElement("div");
       bubble.className = "message-bubble";
-      bubble.style.position = "absolute";
-      // Posisi awal: bubble muncul tepat di atas kepala
+      // Initial position: bubble appears just above the head
       bubble.style.top = headY - 10 + "px";
-      bubble.style.background = "white";
-      bubble.style.border = "1px solid #000";
-      bubble.style.borderRadius = "10px";
-      bubble.style.padding = "10px";
-      bubble.style.whiteSpace = "pre-wrap";
-      bubble.style.opacity = "1";
-      bubble.style.transition = `opacity ${fadeTime / 1000}s ease`;
 
       bubble.innerText = formattedMessage;
       this.container.appendChild(bubble);
 
-      // Penyesuaian posisi agar tidak menutupi kepala stickwoman
+      // Adjust position to avoid covering the stickwoman's head
       const bubbleRect = bubble.getBoundingClientRect();
       const containerRect = this.container.getBoundingClientRect();
       const bubbleBottom = bubbleRect.bottom - containerRect.top;
@@ -81,7 +79,7 @@ class MessageBubble {
         bubble.style.top = (headY - 35 - bubbleRect.height) + "px";
       }
 
-      // Setelah delayTime, mulai proses fade out
+      // After delayTime, start fade out
       setTimeout(() => {
         bubble.style.opacity = "0";
         setTimeout(() => {
